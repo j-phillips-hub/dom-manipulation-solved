@@ -12,8 +12,7 @@
  */
 
 // Your code goes here...
-
-
+const allItems = document.querySelectorAll('.item');
 
 /**
  * @task
@@ -23,8 +22,7 @@
  * */
 
 // Your code goes here
-
-
+const main = document.getElementById('main');
 
 /**
  * @task
@@ -34,8 +32,7 @@
  */
 
 // Your code goes here
-
-
+const favs = document.getElementById('favs');
 
 /**
  * @task
@@ -47,9 +44,18 @@
  */
 
 // Your code goes here
+function updateCollections(id, direction) {
+  const item = document.getElementById(id);
+  const icon = item.firstChild.nextSibling;
 
-
-
+  if (item.parentElement === main && direction === 'toFavs') {
+    favs.appendChild(item);
+    icon.className = 'fa-solid fa-heart-crack';
+  } else if (item.parentElement === favs && direction === 'toMain') {
+    main.appendChild(item);
+    icon.className = 'fa-solid fa-heart-circle-plus';
+  }
+}
 /**
  * @task
  * Iterate through the every item in allItems NodeList and apply the
@@ -65,5 +71,11 @@
  */
 
 // Your code goes here...
-
-
+allItems.forEach(item => {
+  item.addEventListener('click', () => {
+    const parentId = item.parentElement.id;
+    const itemId = parseInt(item.id);
+    const direction = parentId === 'main' ? 'toFavs' : 'toMain';
+    updateCollections(itemId, direction);
+  });
+});
