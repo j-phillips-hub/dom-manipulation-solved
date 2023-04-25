@@ -38,3 +38,32 @@
  */
 
 // Your code goes here...
+const cardsContainer = document.querySelector('.cardsContainer');
+
+cardsContainer.addEventListener('click', function (e) {
+  if (e.target.classList.contains('card')) {
+    const card = e.target;
+    const id = card.id;
+    const isFav = card.dataset.fav === 'true';
+
+    if (!isFav) {
+      card.style.backgroundColor = 'red';
+      card.dataset.fav = 'true';
+      localStorage.setItem(id, 'true');
+    } else {
+      card.style.backgroundColor = 'white';
+      card.dataset.fav = 'false';
+      localStorage.removeItem(id);
+    }
+  }
+});
+
+document.querySelectorAll('.card').forEach(function (card) {
+  const id = card.id;
+  const isFav = localStorage.getItem(id) === 'true';
+
+  if (isFav) {
+    card.style.backgroundColor = 'red';
+    card.dataset.fav = 'true';
+  }
+});
